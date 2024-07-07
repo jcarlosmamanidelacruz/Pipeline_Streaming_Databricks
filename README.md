@@ -1,5 +1,7 @@
 # Pipeline de Datos Streaming con Databricks
 
+[![Portafolios-Pipeline-Databricks.jpg](https://i.postimg.cc/gcSQ6bYt/Portafolios-Pipeline-Databricks.jpg)](https://postimg.cc/qgKj9Y62)
+
 ## 1. Descripción del Proyecto
 
 Este proyecto muestra la implementación de un pipeline de datos utilizando Databricks, Kafka y Delta Lake en Azure. El objetivo es demostrar cómo se pueden integrar diversas tecnologías para crear un flujo de datos en tiempo real, desde la generación de datos hasta su almacenamiento y procesamiento. El proyecto incluye la creación de una base de datos para almacenar información de alumnos y la simulación de datos ficticios de alumnos que se ingestan cada dos segundos en Kafka para simular un streaming, actualizando las tablas Delta Lake en tiempo real.
@@ -334,7 +336,7 @@ Clic en **“Review + Create” —> “Create” —> “Go to resource”**
 
 1.- Ir a “Access control (IAM), luego **“Add”**, clic en **“Add role assignment”**
 
-[![19-add-roles.png](https://i.postimg.cc/Vs04Qpxm/19-add-roles.png)](https://postimg.cc/XX399HNz)
+[![Portafolios-Pipeline-Databricks.jpg](https://i.postimg.cc/gcSQ6bYt/Portafolios-Pipeline-Databricks.jpg)](https://postimg.cc/qgKj9Y62)
 
 2.- En **“Job function roles”** seleccionar **“key vault contributor”**, luego clic en**“Members”**
 
@@ -389,12 +391,6 @@ Clic en **“select” —> “Review + assign”**
 
 - **Name:**  ServerKafka
 - **Secret vault: ** (copiamos el **la cadena de conexión del servidor de kafka**
-- Click en **Create**
-
-5.- Crear el secret para el **ServerMongoDB** de conexión a Kafka
-
-- **Name:**  ServerMongoDB
-- **Secret vault: ** (copiamos el **la cadena de conexión del servidor de MongoDB**
 - Click en **Create**
 
 [![15-secrets.png](https://i.postimg.cc/Yq4cR6BF/15-secrets.png)](https://postimg.cc/TpXHYWw2)
