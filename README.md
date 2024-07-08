@@ -6,13 +6,18 @@
 
 Este proyecto muestra la implementación de un pipeline de datos utilizando Databricks, Kafka y Delta Lake en Azure. El objetivo es demostrar cómo se pueden integrar diversas tecnologías para crear un flujo de datos en tiempo real, desde la generación de datos hasta su almacenamiento y procesamiento. El proyecto incluye la creación de una base de datos para almacenar información de alumnos y la simulación de datos ficticios de alumnos que se ingestan cada dos segundos en Kafka para simular un streaming, actualizando las tablas Delta Lake en tiempo real.
 
-## 2. Estructura del Proyecto
+Este proceso se orquestará mediante un workflow en Databricks, configurado para que su ejecución sea automática. Además, se añadirán notificaciones en caso de fallos durante la ejecución para asegurar una supervisión constante y la rápida detección de problemas.
 
-El proyecto está organizado en las siguientes secciones:
 
-- **Create_Database:** Configuración inicial de la base de datos y las tablas en Databricks.
-- **Producer_Messager**: Generación de datos ficticios y envío a un tópico de Kafka.
-- **Streaming_Messages:** Consumo de datos en tiempo real desde Kafka y almacenamiento en tablas Delta.
+## 2. El pipeline se compone de tres notebooks principales:
+
+- **Create_Database:** El primer notebook del pipeline se encarga de crear la base de datos y las tablas Delta Lake. Utiliza la propiedad enableChangeDataFeed para permitir una auditoría de los cambios realizados en las tablas. Esto asegura que todos los cambios en los datos sean rastreados y puedan ser revisados posteriormente.
+
+- **Producer_Messager:** El segundo notebook genera datos ficticios de 100 alumnos de manera aleatoria. Utilizando un bucle, inserta estos datos en Kafka Confluent cada dos segundos, simulando así un flujo de datos continuo. Esta generación y envío de datos en intervalos regulares permite simular un entorno de datos streaming realista.
+
+- **Streaming_Messages:** El último notebook se encarga de leer los datos en tiempo real desde Kafka Confluent utilizando la funcionalidad readStream y registrarlos en una de las tablas Delta Lake. Utiliza el método writeStream para asegurar que los datos se escriban en streaming, permitiendo una actualización continua y en tiempo real de la base de datos.
+
+Este enfoque integrado y automatizado demuestra cómo las tecnologías modernas pueden trabajar juntas para manejar flujos de datos en tiempo real de manera eficiente y confiable.
 
 ## 3. Tecnologías Utilizadas
 
@@ -144,13 +149,13 @@ Este notebook genera datos ficticios utilizando la librería Faker y los envía 
 			})
 			producer.produce(topic, key=fake.uuid4(), value=str(datos[-1]), callback=mensajes_entrega)
 			producer.poll(0)
-			time.sleep(1)
+			time.sleep(2)
 
 		producer.flush()
 		return datos
 
 	# Generar datos
-	datos_generados = generar_datos(10)
+	datos_generados = generar_datos(100)
 
 
 ### **Streaming_Messages**
